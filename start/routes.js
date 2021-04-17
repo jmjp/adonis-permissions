@@ -21,8 +21,8 @@ Route.post('signin','AuthController.authenticate')
 Route.group(() => {
   Route.get('me','AuthController.me')
   Route.put('me','AuthController.update')
+  Route.resource('roles','RoleController').apiOnly()
+  Route.resource('access','AccessController').apiOnly().except(['update'])
 }).middleware(['auth','permissions'])
-Route.resource('roles','RoleController').apiOnly()
-Route.resource('access','AccessController').apiOnly().except(['update'])
 
 //middleware(['auth','permissions'])

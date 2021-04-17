@@ -1,15 +1,16 @@
 'use strict'
 
 const User = use('App/Models/User');
-
+const Role = use('App/Models/Role');
 class AuthController {
     async register({ request, response }) {
         const data = request.only(['username', 'email', 'password'])
+        const role = await Role.findBy('name','User');
         if(request.is(["multipart"])){
             
         }else{
             try {
-                data.role = 4;
+                data.role = role.id;
                 const user = await User.create(data);
                 return response.status(200).json({ "status": "success", "user": user })
             } catch (error) {
